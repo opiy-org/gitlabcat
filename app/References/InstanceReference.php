@@ -14,8 +14,8 @@ class InstanceReference
 
     const RULES = [
         'project_id' => 'required|exists:projects,id',
-        'name' => 'required|string|min:1|max:32',
-        'url' => 'required|url',
+        'name' => 'required|string|min:1|max:96',
+        'url' => 'required|url|max:200',
     ];
 
 }

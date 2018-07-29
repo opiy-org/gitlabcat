@@ -15,11 +15,11 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->string('gitlab_name')->unique();
+            $table->string('name', 96);
+            $table->string('gitlab_name', 96)->unique();
             $table->unsignedInteger('gitlab_id')->nullable();
 
-            $table->string('uid')->nullable();
+            $table->string('uid', 32)->nullable();
             $table->string('api_key')->nullable();
 
             $table->unsignedSmallInteger('rights')->default(0);

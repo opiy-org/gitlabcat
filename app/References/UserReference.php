@@ -13,9 +13,9 @@ class UserReference
 {
 
     const RULES = [
-        'name' => 'required|string|min:2|max:32',
-        'gitlab_name' => 'required|string|unique:users,gitlab_name',
-        'uid' => 'nullable|string',
+        'name' => 'required|string|min:2|max:96',
+        'gitlab_name' => 'required|string|max:96|unique:users,gitlab_name',
+        'uid' => 'nullable|string|max:32',
 
         'gitlab_id' => 'nullable|integer',
         'api_key' => 'nullable|string',

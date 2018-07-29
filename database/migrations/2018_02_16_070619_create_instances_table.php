@@ -23,12 +23,12 @@ class CreateInstancesTable extends Migration
                 ->onDelete('cascade');
 
 
-            $table->string('name');
-            $table->string('url');
+            $table->string('name', 96);
+            $table->string('url',200);
 
             $table->timestamps();
 
-            $table->index(['name', 'i_name']);
+            $table->index(['name', 'i_name_index']);
         });
     }
 

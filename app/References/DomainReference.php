@@ -14,7 +14,7 @@ class DomainReference
 
     const RULES = [
         'project_id' => 'required|exists:projects,id',
-        'name' => 'required|string|min:3|max:32',
+        'name' => 'required|string|min:3|max:96',
     ];
 
 }

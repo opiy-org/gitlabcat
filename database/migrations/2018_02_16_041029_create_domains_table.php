@@ -21,13 +21,13 @@ class CreateDomainsTable extends Migration
                 ->references('id')->on('projects')
                 ->onDelete('cascade');
 
-            $table->string('name');
+            $table->string('name', 96);
 
             $table->date('expiration')->nullable();
 
             $table->timestamps();
 
-            $table->index(['name'],'d_name');
+            $table->index(['name'], 'd_name_index');
         });
     }
 

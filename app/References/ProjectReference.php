@@ -13,9 +13,9 @@ class ProjectReference
 {
 
     const RULES = [
-        'name' => 'required|string|min:1|max:32',
-        'gitlab_name' => 'required|string|unique:projects,gitlab_name',
-        'channel' => 'required|string',
+        'name' => 'required|string|min:1|max:96',
+        'gitlab_name' => 'required|string|max:96|unique:projects,gitlab_name',
+        'channel' => 'required|string|max:128',
         'gitlab_id' => 'nullable|int',
     ];
 
