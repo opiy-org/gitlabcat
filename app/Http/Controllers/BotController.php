@@ -98,6 +98,8 @@ class BotController
                 }
 
                 if ($command) {
+                    l::debug('got command', $command);
+
                     //if admin or coder and command
                     if (($user->is_admin || $user->is_coder) && in_array($command, UserReference::CODER_COMMANDS)) {
                         $coderBotSerivce = new BotCoderService($user, $bot);
