@@ -47,6 +47,7 @@ class BotController
     {
         $tgService = new TgBotService($request);
         $this->botman = $tgService->init();
+        $this->bot_name = config('telegram_bot.bot_name');
 
         try {
             $this->botman->hears('{phrase}', function (BotMan $bot, $phrase) {

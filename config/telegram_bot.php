@@ -8,7 +8,7 @@
 
 return [
     'token' => env('TG_BOT_TOKEN'),
-    'bot_name' => env('TG_BOT_NAME', 'GitLab_Cat'),
+    'bot_name' => env('TG_BOT_NAME', 'gitlabcat_bot'),
     'quiet_mode' => env('TG_BOT_QUIET', true),
 
 ];
