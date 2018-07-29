@@ -26,7 +26,7 @@ class GitLabApi
     public function __construct(string $api_key)
     {
         $this->api_key = $api_key;
-        $this->api_url = config('api_url') . '/api/v4/';
+        $this->api_url = config('gitlab.api_url') . '/api/v4/';
     }
 
 
