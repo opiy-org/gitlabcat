@@ -28,7 +28,7 @@ class CreateInstancesTable extends Migration
 
             $table->timestamps();
 
-            $table->index(['name', 'i_name_index']);
+            $table->index(['name'], 'i_name_index');
         });
     }
 
