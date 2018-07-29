@@ -61,6 +61,7 @@ class BotAdminService extends AbstractBotService
             case 'users':
                 if ($isOnChannel) {
                     $this->bot->reply('Такими вещами лучше занимться в личке...');
+                    return;
                 }
                 $retval = $this->getUsersList();
                 $this->bot->reply($retval);
@@ -69,6 +70,7 @@ class BotAdminService extends AbstractBotService
             case 'adduser':
                 if ($isOnChannel) {
                     $this->bot->reply('Такими вещами лучше занимться в личке...');
+                    return;
                 }
                 $this->bot->startConversation(new AddUserConversation());
                 break;
@@ -76,6 +78,7 @@ class BotAdminService extends AbstractBotService
             case 'deluser':
                 if ($isOnChannel) {
                     $this->bot->reply('Такими вещами лучше занимться в личке...');
+                    return;
                 }
                 $this->bot->startConversation(new DelUserConversation());
                 break;

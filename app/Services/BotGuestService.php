@@ -24,6 +24,7 @@ class BotGuestService  extends AbstractBotService
             case 'reg':
                 if ($isOnChannel) {
                     $this->bot->reply('Такими вещами лучше занимться в личке...');
+                    return;
                 }
                 $this->bot->startConversation(new RegUserConversation());
                 break;
