@@ -12,7 +12,7 @@ __GitLab events, issues, statistics, etc notifications via Telegram bot.__
 ### Dependencies
 
 - php > 7.1.3
-- postgresql
+- postgresql / mysql
 - redis (optional)
 - whois
 
@@ -22,7 +22,7 @@ cd /path-to-your-project
 cp .env.example .env
 vim .env
 
-comopser global require  hirak/prestissimo
+composer global require  hirak/prestissimo
 composer install
 
 php artisan key:generate

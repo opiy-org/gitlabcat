@@ -22,7 +22,6 @@ class CreateUsersTable extends Migration
             $table->string('uid')->nullable();
             $table->string('api_key')->nullable();
 
-            $table->jsonb('settings')->nullable();
             $table->unsignedSmallInteger('rights')->default(0);
 
             $table->timestamps();

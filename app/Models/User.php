@@ -21,18 +21,12 @@ class User extends Model
         'api_key',
         'gitlab_id',
         'rights',
-        'settings',
     ];
 
     protected $appends = [
         'is_coder',
         'is_admin'
     ];
-
-    protected $casts = [
-        'settings' => 'array'
-    ];
-
 
     /**
      * @return bool
