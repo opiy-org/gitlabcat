@@ -13,7 +13,7 @@ __GitLab events, issues, statistics, etc notifications via Telegram bot.__
 
 - php > 7.1.3
 - postgresql
-- redis
+- redis (optional)
 - whois
 
 
@@ -30,8 +30,11 @@ php artisan migrate --force
 php artisan db:seed --force
 
 chown www-data:www-data * -R
+```
 
-
+```
+crontab -l 
+* * * * * cd /path-to-your-project && php artisan schedule:run >> /dev/null 2>&1
 ```
 
 TODO: 
