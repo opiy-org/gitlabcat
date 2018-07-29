@@ -23,8 +23,8 @@ class CreateProjectsTable extends Migration
             $table->string('channel');
             $table->timestamps();
 
-            $table->index(['gitlab_id']);
-            $table->index(['gitlab_name']);
+            $table->index(['gitlab_id'], 'p_gi_index');
+            $table->index(['gitlab_name'], 'p_gn_index');
         });
     }
 

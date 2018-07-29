@@ -27,7 +27,7 @@ class CreateDomainsTable extends Migration
 
             $table->timestamps();
 
-            $table->index(['name']);
+            $table->index(['name'],'d_name');
         });
     }
 

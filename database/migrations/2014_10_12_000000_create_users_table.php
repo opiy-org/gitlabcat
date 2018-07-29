@@ -26,9 +26,9 @@ class CreateUsersTable extends Migration
 
             $table->timestamps();
 
-            $table->index(['gitlab_id']);
-            $table->index(['gitlab_name']);
-            $table->index(['uid']);
+            $table->index(['gitlab_id'], 'u_gi_index');
+            $table->index(['gitlab_name'], 'u_gn_index');
+            $table->index(['uid'], 'u_uid_index');
         });
     }
 
