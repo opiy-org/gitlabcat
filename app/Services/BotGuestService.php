@@ -21,13 +21,13 @@ class BotGuestService  extends AbstractBotService
     public function proceedInboundMessage(string $message, bool $isOnChannel = true)
     {
         switch ($message) {
-            case '/reg':
+            case 'reg':
                 if ($isOnChannel) {
                     $this->bot->reply('Такими вещами лучше занимться в личке...');
                 }
                 $this->bot->startConversation(new RegUserConversation());
                 break;
-            case '/help':
+            case 'help':
                 $message = 'Тебе доступна только одна команда: ' . "\n";
                 $message .= '/reg - регистрация' . "\n\n";
                 $this->bot->reply($message);

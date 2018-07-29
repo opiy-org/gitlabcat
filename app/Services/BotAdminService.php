@@ -30,35 +30,35 @@ class BotAdminService extends AbstractBotService
     public function proceedInboundMessage(string $message, bool $isOnChannel = true)
     {
         switch ($message) {
-            case '/addinstance':
+            case 'addinstance':
                 $this->bot->startConversation(new AddInstanceConversation());
                 break;
 
-            case '/delinstance':
+            case 'delinstance':
                 $this->bot->startConversation(new DelInstanceConversation());
                 break;
-            case '/adddomain':
+            case 'adddomain':
                 $this->bot->startConversation(new AddDomainConversation());
                 break;
 
-            case '/deldomain':
+            case 'deldomain':
                 $this->bot->startConversation(new DelDomainConversation());
                 break;
 
-            case '/projects':
+            case 'projects':
                 $retval = $this->getProjectsList();
                 $this->bot->reply($retval);
                 break;
 
-            case '/addproject':
+            case 'addproject':
                 $this->bot->startConversation(new AddProjectConversation());
                 break;
 
-            case '/delproject':
+            case 'delproject':
                 $this->bot->startConversation(new DelProjectConversation());
                 break;
 
-            case '/users':
+            case 'users':
                 if ($isOnChannel) {
                     $this->bot->reply('Такими вещами лучше занимться в личке...');
                 }
@@ -66,21 +66,21 @@ class BotAdminService extends AbstractBotService
                 $this->bot->reply($retval);
                 break;
 
-            case '/adduser':
+            case 'adduser':
                 if ($isOnChannel) {
                     $this->bot->reply('Такими вещами лучше занимться в личке...');
                 }
                 $this->bot->startConversation(new AddUserConversation());
                 break;
 
-            case '/deluser':
+            case 'deluser':
                 if ($isOnChannel) {
                     $this->bot->reply('Такими вещами лучше занимться в личке...');
                 }
                 $this->bot->startConversation(new DelUserConversation());
                 break;
 
-            case '/help':
+            case 'help':
                 $message = '/adddomain - добавить домен ' . "\n";
                 $message .= '/deldomain  - удалить домен' . "\n";
 

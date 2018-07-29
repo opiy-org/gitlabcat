@@ -25,25 +25,25 @@ class BotCoderService extends AbstractBotService
     public function proceedInboundMessage(string $message, bool $isOnChannel = true)
     {
         switch ($message) {
-            case '/issues':
+            case 'issues':
                 $retval = $this->getIssues();
                 $this->bot->reply($retval, [
                     'parse_mode' => 'Markdown',
                     'disable_web_page_preview' => true
                 ]);
                 break;
-            case '/instances':
+            case 'instances':
                 $retval = $this->getInstanceList();
                 $this->bot->reply($retval);
                 break;
-            case '/domains':
+            case 'domains':
                 $retval = $this->getDomainList();
                 $this->bot->reply($retval, [
                     'parse_mode' => 'Markdown',
                     'disable_web_page_preview' => true
                 ]);
                 break;
-            case '/help':
+            case 'help':
                 $message = 'Привет, ' . $this->user->name . '!' . "\n" . "\n";
                 $message .= 'Тебе доступны следующие комманды: ' . "\n";
                 $message .= '/issues - список твоих тасок ' . "\n";
@@ -54,7 +54,7 @@ class BotCoderService extends AbstractBotService
                 $this->bot->reply($message);
                 break;
 
-            case '/showmethecat':
+            case 'showmethecat':
                 $cat = new Meow();
                 $data = $cat->getCat();
                 $message = 'Ну, ок.' . "\n" . array_get($data, 'file');
