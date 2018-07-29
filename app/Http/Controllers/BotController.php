@@ -90,7 +90,7 @@ class BotController
 
                 //proceed message/command
                 preg_match('/^\/([\W\w0-9\s]+)$/mui', $phrase, $matches);
-                $command = array_get($matches, 0);
+                $command = array_get($matches, 1);
 
                 //not command message and quiet mode ON - do nothing
                 if (!$command and config('telegram_bot.quiet_mode')) {
