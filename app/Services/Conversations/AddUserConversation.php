@@ -82,9 +82,8 @@ class AddUserConversation extends AbstractConversation
         $this->data['rights'] = 10;
 
         /** @var User $newuser */
-        $user = User::where('id', $this->user_id)->first();
 
-        $newuser = $user->update($this->data);
+        $newuser = User::create($this->data);
 
         if ($newuser) {
             $this->say('Юзер успешно создан!');
