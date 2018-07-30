@@ -98,6 +98,7 @@ class BotController
                     return;
                 }
 
+                $executed=false;
                 if ($command) {
                     l::debug('got command', $command);
 
@@ -105,30 +106,32 @@ class BotController
                     if (($user->is_admin || $user->is_coder) && in_array($command, UserReference::CODER_COMMANDS)) {
                         $coderBotSerivce = new BotCoderService($user, $bot);
                         $coderBotSerivce->proceedInboundMessage($command);
-                        return;
+                        $executed = true;
                     }
 
                     //if admin command and user is admin
                     if ($user->is_admin && in_array($command, UserReference::ADMIN_COMMANDS)) {
                         $adminBotSerivce = new BotAdminService($user, $bot);
                         $adminBotSerivce->proceedInboundMessage($command);
-                        return;
+                        $executed = true;
                     }
 
                     //guest commands
                     if ((!$user->is_admin && !$user->is_coder) && in_array($command, UserReference::GUEST_COMMANDS)) {
                         $guestBotSerivce = new BotGuestService($user, $bot);
                         $guestBotSerivce->proceedInboundMessage($command);
-                        return;
+                        $executed = true;
                     }
 
 
                 }
 
-                if (rand(0, 10) == 5) {
-                    $bot->reply('Мяу, йопта!');
-                } else {
-                    $bot->reply('Мяу');
+                if (!$executed) {
+                    if (rand(0, 10) == 5) {
+                        $bot->reply('Мяу, йопта!');
+                    } else {
+                        $bot->reply('Мяу');
+                    }
                 }
 
             });
