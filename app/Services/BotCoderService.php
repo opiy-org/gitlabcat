@@ -57,7 +57,14 @@ class BotCoderService extends AbstractBotService
             case 'showmethecat':
                 $cat = new Meow();
                 $data = $cat->getCat();
+
+                $cat_file = array_get($data, 'file');
+
+                if (!$cat_file) {
+                    $cat_file = 'https://cataas.com/cat';
+                }
                 $message = 'Ну, ок.' . "\n" . array_get($data, 'file');
+
                 $this->bot->reply($message);
                 break;
         }
