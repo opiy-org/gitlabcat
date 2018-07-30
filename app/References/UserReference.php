@@ -50,6 +50,8 @@ class UserReference
         'users',
         'adduser',
         'deluser',
+
+        'help',
     ];
 
 

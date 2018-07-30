@@ -103,7 +103,7 @@ class BotController
                     l::debug('got command', $command);
 
                     //if admin or coder and command
-                    if (($user->is_admin || $user->is_coder) && in_array($command, UserReference::CODER_COMMANDS)) {
+                    if (($user->is_coder) && in_array($command, UserReference::CODER_COMMANDS)) {
                         $coderBotSerivce = new BotCoderService($user, $bot);
                         $coderBotSerivce->proceedInboundMessage($command);
                         $executed = true;
