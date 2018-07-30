@@ -36,7 +36,7 @@ class AddProjectConversation extends AbstractConversation
 
     protected function askChannel()
     {
-        $this->ask('Введите имя или ссылку TG канала для проекта: ', function (Answer $answer) {
+        $this->ask('Введите @name или -id телеграм канала для проекта: ', function (Answer $answer) {
             $this->doAsk($answer, 'channel', 'askChannel', 'askGlName');
             return;
         });
