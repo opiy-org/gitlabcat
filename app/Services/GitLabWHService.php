@@ -51,11 +51,12 @@ class GitLabWHService
         $this->status = array_get($this->object_attributes, 'status');
 
         $g_project = array_get($this->whook_data, 'project.name');
-        $this->project = Project::where('gitlab_name', $g_project)->first();
-        if (!$this->project) {
-            l::error($this, 'project unknown');
+        $project = Project::where('gitlab_name', $g_project)->first();
+        if (!$project) {
+            l::error($this, 'project unknown: ' . $g_project);
             return;
         }
+        $this->project = $project;
 
         switch ($this->type) {
             case 'pipeline':
