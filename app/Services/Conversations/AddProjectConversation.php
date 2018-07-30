@@ -36,7 +36,7 @@ class AddProjectConversation extends AbstractConversation
 
     protected function askChannel()
     {
-        $this->ask('Введите навзание канала проекта: ', function (Answer $answer) {
+        $this->ask('Введите имя или ссылку TG канала для проекта: ', function (Answer $answer) {
             $this->doAsk($answer, 'channel', 'askChannel', 'askGlName');
             return;
         });
@@ -45,7 +45,7 @@ class AddProjectConversation extends AbstractConversation
 
     protected function askGlName()
     {
-        $this->ask('Введите навзание проекта в гитлабе: ', function (Answer $answer) {
+        $this->ask('Введите имя проекта в гитлабе: ', function (Answer $answer) {
             $this->doAsk($answer, 'gitlab_name', 'askGlName', 'isCorrect');
             return;
         });
