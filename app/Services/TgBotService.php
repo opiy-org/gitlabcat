@@ -64,7 +64,7 @@ class TgBotService
     {
         try {
             $responce = $this->botman->sendRequest('sendMessage', [
-                'chat_id' => '@' . $chat_id,
+                'chat_id' => $chat_id,
                 'text' => $message,
                 'parse_mode' => 'Markdown',
                 'disable_web_page_preview' => true,

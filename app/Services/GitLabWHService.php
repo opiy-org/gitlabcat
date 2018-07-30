@@ -42,7 +42,7 @@ class GitLabWHService
      */
     public function proceedWebhook()
     {
-        l::debug('wh-data', $this->whook_data);
+//        l::debug('wh-data', $this->whook_data);
 
         $this->type = array_get($this->whook_data, 'object_kind');
 
