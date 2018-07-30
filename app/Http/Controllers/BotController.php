@@ -105,21 +105,21 @@ class BotController
                     //if admin or coder and command
                     if (($user->is_coder) && in_array($command, UserReference::CODER_COMMANDS)) {
                         $coderBotSerivce = new BotCoderService($user, $bot);
-                        $coderBotSerivce->proceedInboundMessage($command);
+                        $coderBotSerivce->proceedInboundMessage($command, $is_on_channel);
                         $executed = true;
                     }
 
                     //if admin command and user is admin
                     if ($user->is_admin && in_array($command, UserReference::ADMIN_COMMANDS)) {
                         $adminBotSerivce = new BotAdminService($user, $bot);
-                        $adminBotSerivce->proceedInboundMessage($command);
+                        $adminBotSerivce->proceedInboundMessage($command, $is_on_channel);
                         $executed = true;
                     }
 
                     //guest commands
                     if ((!$user->is_admin && !$user->is_coder) && in_array($command, UserReference::GUEST_COMMANDS)) {
                         $guestBotSerivce = new BotGuestService($user, $bot);
-                        $guestBotSerivce->proceedInboundMessage($command);
+                        $guestBotSerivce->proceedInboundMessage($command, $is_on_channel);
                         $executed = true;
                     }
 
