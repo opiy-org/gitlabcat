@@ -101,10 +101,10 @@ class GitLabWHService
         $url = array_get($this->whook_data, 'commit.url');
 
         if ($this->status === 'success') {
-            $message = '🏴󠁴󠁶󠁦󠁵󠁮󠁿 На *' . $ref . '* стенде проекта *' . $this->project->name . '* [труба-линия](' . $url . ') завершилась с успехом. ' . "\n\n" . 'Запускатором был: ' . $user_name . " \n\n";
+            $message = '✅ На *' . $ref . '* стенде проекта *' . $this->project->name . '* [труба-линия](' . $url . ') завершилась с успехом. ' . "\n\n" . 'Запускатором был: ' . $user_name . " \n\n";
             $this->tgService->doSay($this->project->channel, $message);
         } elseif ($this->status === 'failed') {
-            $message = '🚾 На *' . $ref . '* стенде проекта *' . $this->project->name . '* [труба-линия](' . $url . ') успешно провалилась :(. ' . "\n\n" . 'Запускатором был: ' . $user_name . " \n\n";
+            $message = '💀 На *' . $ref . '* стенде проекта *' . $this->project->name . '* [труба-линия](' . $url . ') успешно провалилась :(. ' . "\n\n" . 'Запускатором был: ' . $user_name . " \n\n";
             $this->tgService->doSay($this->project->channel, $message);
         }
     }
