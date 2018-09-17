@@ -35,7 +35,7 @@ class DFApi
             'sessionId' => uniqid(),
 
         ]);
-        l::debug('apiai: ', $data);
+        //l::debug('apiai: ', $data);
 
         $intname = array_get($data, 'result.metadata.intentName', 'Default Fallback Intent');
 
