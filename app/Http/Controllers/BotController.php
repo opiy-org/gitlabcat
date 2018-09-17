@@ -92,7 +92,7 @@ class BotController
                     return;
                 } elseif (!$command) {
                     $df = new DFApi();
-                    $check = $df->sendRequest($phrase);
+                    $check = $df->query($phrase);
                     l::debug('----', $check);
                 }
 
