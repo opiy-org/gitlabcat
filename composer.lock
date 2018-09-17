@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "49e0606e0b213fbb100c9b33c943b178",
+    "content-hash": "523b0582d9d68d8a2669cb57e45fd0c0",
     "packages": [
         {
             "name": "botman/botman",
@@ -951,50 +951,6 @@
                 "url"
             ],
             "time": "2017-03-20T17:10:46+00:00"
-        },
-        {
-            "name": "iboldurev/dialogflow",
-            "version": "0.3.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/iboldurev/dialogflow.git",
-                "reference": "b0aef50e1ccacbe86ca8ff173b5ef9f229d296c8"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/iboldurev/dialogflow/zipball/b0aef50e1ccacbe86ca8ff173b5ef9f229d296c8",
-                "reference": "b0aef50e1ccacbe86ca8ff173b5ef9f229d296c8",
-                "shasum": ""
-            },
-            "require": {
-                "guzzlehttp/guzzle": "^6.2",
-                "php": ">=5.5.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "DialogFlow\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Ivan Boldyrev",
-                    "email": "iboldurev@gmail.com",
-                    "homepage": "https://github.com/iboldurev"
-                }
-            ],
-            "description": "Dialogflow php sdk",
-            "keywords": [
-                "Dialogflow",
-                "Dialogflow sdk",
-                "api.ai",
-                "bot"
-            ],
-            "time": "2017-10-27T19:44:35+00:00"
         },
         {
             "name": "jakub-onderka/php-console-color",

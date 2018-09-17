@@ -3,13 +3,16 @@
 namespace App\Helpers;
 
 
-use DialogFlow\Client;
 use Exception;
+use GuzzleHttp\Client;
 
 class DFApi
 {
 
     protected $api_key;
+    protected $base_url = 'https://api.api.ai/v1/';
+    protected $ver = '20150910';
+
 
     /**
      * DialogFlow api helper constructor.
@@ -21,26 +24,64 @@ class DFApi
     }
 
 
-    /**
-     *  Send request
-     */
-    public function sendRequest(string $query)
+    public function query($phrase)
     {
-        try {
-            $client = new Client($this->api_key);
+        $phrase = trim($phrase);
 
-            $response_data = $client->get('query', [
-                'query' => $query,
-            ]);
 
-            $response = json_decode((string)$response_data->getBody(), true);
+        $data = $this->sendGetRequest('query', [
+            'query' => $phrase,
+            'lang' => 'ru',
+            'sessionId' => uniqid(),
 
-        } catch (Exception $exception) {
-            l::exc($this, $exception);
-            $response = [];
+        ]);
+        l::debug('apiai: ', $data);
+
+        $speech = array_get($data, 'result.fulfillment.messages', []);
+
+
+        $result = '';
+        foreach ($speech as $sp) {
+            $phrase = array_get($sp, 'speech', null);
+            if ($phrase != null) {
+                $result .= $phrase . "\n";
+            }
+
         }
 
-        return $response;
+        l::debug('apiai: ', $result);
+
+        return $result;
+    }
+
+
+    /**
+     * @param string $method
+     * @param array $options
+     * @return mixed
+     */
+    public function sendGetRequest(string $method, array $options = [])
+    {
+        $options['v'] = $this->ver;
+
+        try {
+            /** @var Client $client */
+            $client = new Client([
+                'verify' => false,
+            ]);
+
+            $responseData = $client->request('GET', $this->base_url . $method,
+                [
+                    'headers' => ['Authorization' => 'Bearer ' . $this->api_key],
+                    'query' => $options
+                ]);
+
+            return json_decode($responseData->getBody(), true);
+        } catch (Exception $exception) {
+            l::debug('-api_ai error: ', $exception->getMessage());
+            return [];
+        }
+
     }
 
 
