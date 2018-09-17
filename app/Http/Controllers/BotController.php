@@ -81,7 +81,7 @@ class BotController
                     $phrase = str_replace('@' . $this->bot_name, '', $phrase);
                     $is_on_channel = true;
                 }
-
+                $replied = false;
 
                 //proceed message/command
                 preg_match('/^\/([\W\w0-9\s]+)$/mui', $phrase, $matches);
@@ -95,13 +95,14 @@ class BotController
                     $ai_answer = $df->query($phrase);
                     if ($ai_answer) {
                         $bot->reply($ai_answer);
+                        $replied = true;
                     }
                 }
 
                 //not registered? go away!
                 if (!$user) {
                     $bot->reply('Кто вы такие? Я вас не звал');
-
+                    $replied = true;
                     l::debug('Forbidden for :', $username, $this);
                     return;
                 }
@@ -134,7 +135,7 @@ class BotController
 
                 }
 
-                if (!$executed) {
+                if (!$executed && !$replied) {
                     if (rand(0, 10) == 5) {
                         $bot->reply('Мяу, йопта!');
                     } else {
