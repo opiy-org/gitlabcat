@@ -92,10 +92,11 @@ class BotController
                     return;
                 } elseif (!$command) {
                     $df = new DFApi();
-                    $check = $df->query($phrase);
-                    l::debug('----', $check);
+                    $ai_answer = $df->query($phrase);
+                    if ($ai_answer) {
+                        $bot->reply($ai_answer);
+                    }
                 }
-
 
                 //not registered? go away!
                 if (!$user) {

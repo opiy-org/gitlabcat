@@ -37,12 +37,19 @@ class DFApi
         ]);
         l::debug('apiai: ', $data);
 
-        $speech = array_get($data, 'result.fulfillment.messages', []);
+        $intname = array_get($data, 'result.metadata.intentName', 'Default Fallback Intent');
+
+        $messages = array_get($data, 'result.fulfillment.messages', []);
+
+        if ($intname == 'Default Fallback Intent' || count($messages) == 0) {
+            return null;
+        }
 
 
         $result = '';
-        foreach ($speech as $sp) {
-            $phrase = array_get($sp, 'speech', null);
+
+        foreach ($messages as $message) {
+            $phrase = array_get($message, 'speech', null);
             if ($phrase != null) {
                 $result .= $phrase . "\n";
             }
