@@ -8,6 +8,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\DFApi;
 use App\Helpers\l;
 use App\Models\User;
 use App\References\UserReference;
@@ -66,13 +67,6 @@ class BotController
                     $user = User::where('uid', $id)->first();
                 }
 
-                //not registered? go away!
-                if (!$user) {
-                    $bot->reply('Кто вы такие? Я вас не звал');
-
-                    l::debug('Forbidden for :', $username, $this);
-                    return;
-                }
 
                 $userService = new UserService($user);
                 //update user data if it need
@@ -96,9 +90,22 @@ class BotController
                 //not command message and quiet mode ON - do nothing
                 if (!$command and config('telegram_bot.quiet_mode')) {
                     return;
+                } elseif (!$command) {
+                    $df = new DFApi();
+                    $check = $df->sendRequest($phrase);
+                    l::debug('----', $check);
                 }
 
-                $executed=false;
+
+                //not registered? go away!
+                if (!$user) {
+                    $bot->reply('Кто вы такие? Я вас не звал');
+
+                    l::debug('Forbidden for :', $username, $this);
+                    return;
+                }
+
+                $executed = false;
                 if ($command) {
                     //l::debug('got command', $command);
 
