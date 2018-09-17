@@ -138,7 +138,7 @@ class BotController
                 if (!$executed && !$replied) {
                     if (rand(0, 10) == 5) {
                         $bot->reply('Мяу, йопта!');
-                    } else {
+                    } elseif ($executed) {
                         $bot->reply('Мяу');
                     }
                 }
