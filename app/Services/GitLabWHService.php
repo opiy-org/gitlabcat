@@ -54,6 +54,7 @@ class GitLabWHService
         $project = Project::where('gitlab_name', $g_project)->first();
         if (!$project) {
             l::error($this, 'project unknown: ' . $g_project);
+            l::debug('data: ', $this->whook_data);
             return;
         }
         $this->project = $project;
