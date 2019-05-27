@@ -29,6 +29,16 @@ class GitLabWHService
 
     protected $project;
 
+    const PIPELINE_STATUSES = [
+        'skipped' => 'мимо',
+        'success' => 'успех',
+        'created' => 'создалось',
+        'failed' => 'сдохло',
+        'canceled' => 'отменено',
+        'pending' => 'пендится',
+        'running' => 'бегает',
+    ];
+
     public function __construct(array $whook_data)
     {
         $this->whook_data = $whook_data;
@@ -100,14 +110,22 @@ class GitLabWHService
 
         $ref = array_get($this->object_attributes, 'ref');
         $url = array_get($this->whook_data, 'commit.url');
+        $commit_message = data_get($this->whook_data, 'commit.message');
 
         if ($this->status === 'success') {
-            $message = '✅ На *' . $ref . '* стенде проекта *' . $this->project->name . '* [труба-линия](' . $url . ') завершилась с успехом. ' . "\n\n" . 'Запускатором был: ' . $user_name . " \n\n";
-            $this->tgService->doSay($this->project->channel, $message);
+            $message = '✅ На *' . $ref . '* ветке проекта *' . $this->project->name . '* [труба-линия](' . $url . ') завершилась с успехом после коммита ' . $commit_message . "\n\n";
         } elseif ($this->status === 'failed') {
-            $message = '💀 На *' . $ref . '* стенде проекта *' . $this->project->name . '* [труба-линия](' . $url . ') успешно провалилась :(. ' . "\n\n" . 'Запускатором был: ' . $user_name . " \n\n";
-            $this->tgService->doSay($this->project->channel, $message);
+
+            $builds = array_get($this->whook_data, 'builds', []);
+            $message = '💀 На *' . $ref . '* ветке проекта *' . $this->project->name . '* [труба-линия](' . $url . ') успешно провалилась :( после коммита ' . $commit_message . "\n\n";
+
+            foreach ($builds as $build) {
+                $status = data_get(self::PIPELINE_STATUSES, data_get($build, 'status'), '');
+                $message .= data_get($build, 'stage') . ' ' . $status . "\n";
+            }
+            $message .= " \n\n" . 'Запускатором был: ' . $user_name . " \n\n";
         }
+        $this->tgService->doSay($this->project->channel, $message);
     }
 
 
@@ -119,21 +137,51 @@ class GitLabWHService
         //todo other types
         if (!$this->subtype == 'open') return;
 
+        $merge_type = array_get($this->whook_data, 'object_attributes.state', 'opened');
+
+        switch ($merge_type) {
+            case 'merged':
+                $what = 'сморженный';
+                break;
+            case 'opened':
+            default:
+                $what = 'новый';
+                break;
+        }
+
+
         $title = $this->clearTitle(array_get($this->object_attributes, 'title', ''));
 
-        $message = 'Эй! Тут новый МР подвезли: ' . ' [' . $title . '](' . array_get($this->object_attributes, 'url') . ') 💢' . "\n\n";
+        $message = 'Эй! Тут ' . $what . ' МР подвезли: ' . ' [' . $title . '](' . array_get($this->object_attributes, 'url') . ') 💢' . "\n\n";
         $this->tgService->doSay($this->project->channel, $message);
     }
 
     /**
-     * Got new note in issue
+     * Got new note
      */
     protected function gotNote()
     {
-        $title = $this->clearTitle(array_get($this->whook_data, 'issue.title', ''));
+        $note_type = array_get($this->whook_data, 'object_attributes.noteable_type', 'Issue');
+
+        switch ($note_type) {
+            case 'Commit':
+                $what = 'коммит';
+                $raw_title = array_get($this->whook_data, 'commit.id', '');
+                break;
+            case 'MergeRequest':
+                $what = 'моржа';
+                $raw_title = array_get($this->whook_data, 'merge_request.title', '');
+                break;
+            case 'Issue':
+            default:
+                $what = 'таску';
+                break;
+        }
+
+        $title = $this->clearTitle($raw_title);
         $user_name = $this->getUsername();
 
-        $message = $user_name . ' прокомментировал таску ' . ' [' . $title . '](' . array_get($this->object_attributes, 'url') . ') 🗯' . "\n\n";
+        $message = $user_name . ' прокомментировал ' . $what . ' [' . $title . '](' . array_get($this->object_attributes, 'url') . ') 🗯' . "\n\n";
         $message .= array_get($this->object_attributes, 'note');
 
         $this->tgService->doSay($this->project->channel, $message);
