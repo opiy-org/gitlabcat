@@ -114,6 +114,7 @@ class GitLabWHService
 
         if ($this->status === 'success') {
             $message = '✅ На *' . $ref . '* ветке проекта *' . $this->project->name . '* [труба-линия](' . $url . ') завершилась с успехом после коммита ' . $commit_message . "\n\n";
+            $message .= " \n\n" . 'Запускатором был: ' . $user_name . " \n\n";
             $this->tgService->doSay($this->project->channel, $message);
         } elseif ($this->status === 'failed') {
 
